@@ -14,14 +14,14 @@ namespace WebAPI.Controllers
         public List<Datum> Get()
         {
             CoronaOperations coop = new CoronaOperations();
-            return coop.GetTheRecords("SELECT * FROM theStats");
+            return coop.GetTheRecords("SELECT * FROM Corona");
         }
 
         // GET: api/Corona
         public List<Datum> Get(string country)
         {
             CoronaOperations coop = new CoronaOperations();
-            return coop.GetTheRecords(string.Format("SELECT * FROM theStats WHERE countrycode = '{0}'", country));
+            return coop.GetTheRecords(string.Format("SELECT * FROM Corona WHERE countrycode = '{0}'", country));
         }
 
         // GET: api/Corona/5
@@ -31,8 +31,11 @@ namespace WebAPI.Controllers
         }
 
         // POST: api/Corona
-        public void Post([FromBody]string value)
+        public bool Post([FromBody]Datum value)
         {
+            CoronaOperations coop = new CoronaOperations();
+            bool res = coop.PostTheRecords(value);
+            return res;
         }
 
         // PUT: api/Corona/5
